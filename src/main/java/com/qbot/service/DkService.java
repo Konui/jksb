@@ -32,6 +32,9 @@ public class DkService {
     public void setAutoDk(String qnum,boolean flg){
         dkList.get(qnum).setAuto(flg);
     }
+    public void removeUser(AccountEntiry accountEntiry){
+        dkList.remove(accountEntiry.getQqNum());
+    }
     public void DkAll(){
         for(AccountEntiry ac:dkList.values()){
             if (ac.isAuto()){

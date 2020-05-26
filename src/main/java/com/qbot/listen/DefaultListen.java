@@ -2,6 +2,7 @@ package com.qbot.listen;
 
 import com.forte.qqrobot.anno.Filter;
 import com.forte.qqrobot.anno.Listen;
+import com.forte.qqrobot.anno.ListenBody;
 import com.forte.qqrobot.anno.Spare;
 import com.forte.qqrobot.beans.messages.msgget.GroupMsg;
 import com.forte.qqrobot.beans.messages.msgget.PrivateMsg;
@@ -31,15 +32,17 @@ public class DefaultListen {
     }
     @Listen(MsgGetTypes.privateMsg)
     @Filter("命令")
+    @ListenBody
     public void getCommandsP(PrivateMsg msg, MsgSender sender){
         sender.SENDER.sendPrivateMsg(msg,getCommands());
     }
 
     @Listen(MsgGetTypes.groupMsg)
     @Filter(".*命令.*")
+    @ListenBody
     public void getCommandsG(GroupMsg msg, MsgSender sender){
         if(!cqCodeUtil.isAt(msg))return;
-        if(msg.getMsg().replaceAll("\\[CQ:at,.*\\]", "")!="命令")return;
+        if(!"命令".equals(msg.getMsg().replaceAll("\\[CQ:at,.*\\]", "").replaceAll(" ","")))return;
         sender.SENDER.sendGroupMsg(msg,getCommands()+cqCodeUtil.getCQCode_At(msg.getQQ()).toString());
     }
 
