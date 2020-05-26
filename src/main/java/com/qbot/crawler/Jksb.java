@@ -50,21 +50,19 @@ public class Jksb {
             forward(httpClient,data);
             iframe(httpClient,data);
             enterTb(httpClient,data);
-            //lastTb(httpClient,data);
+            lastTb(httpClient,data);
         }catch (Exception e){
             data.setMsg(data.getMsg()+e.getMessage());
         }
         finally {
             HttpClientUtils.closeQuietly(httpClient);
         }
-        /*
+
         if(accountEntiry.isGroup()){
             sendMsgService.sendGroupMsg(accountEntiry.getQqGroup(),accountEntiry.getQqNum(),data.getMsg());
         }else {
             sendMsgService.sendPrivateMsg(accountEntiry.getQqNum(),data.getMsg());
         }
-
-         */
         log.info(data.getMsg());
     }
     //进入首页，获取hh28值
@@ -219,7 +217,7 @@ public class Jksb {
             tbData.setFun3(document.select("input[name=fun3]").val());
             tbData.setPtopid(document.select("input[name=ptopid]").val());
             tbData.setSid(document.select("input[name=sid]").val());
-            System.out.println(tbData.toString());
+            log.info(tbData.toString());
         }finally {
             HttpClientUtils.closeQuietly(resp);
             tb.releaseConnection();

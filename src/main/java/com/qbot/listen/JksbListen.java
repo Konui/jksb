@@ -112,12 +112,12 @@ public class JksbListen {
         }
     }
 
-    @Listen(MsgGetTypes.privateMsg)
-    @Filter("test")
-    @ListenBody
-    public void test(PrivateMsg msg,MsgSender sender){
-        for(int i=0;i<5;i++){
-
-        }
-    }
+//    @Listen(MsgGetTypes.privateMsg)
+//    @Filter("test")
+//    @ListenBody
+//    public void test(PrivateMsg msg,MsgSender sender){
+//        for(int i=0;i<5;i++){
+//
+//        }
+//    }
 }
