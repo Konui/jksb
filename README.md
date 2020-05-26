@@ -1,4 +1,4 @@
-## Qbot的zzu打卡
+## 基于Qbot的zzu打卡
 基于酷Q的[Qbot框架](https://github.com/ForteScarlet/simple-robot-core)
 包名|类名|说明
   :-|  :-|  :-
