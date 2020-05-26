@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.HashMap;
-@Slf4j
+
 @Service
 public class DkService {
     private HashMap<String, AccountEntiry> dkList=new HashMap<>();
