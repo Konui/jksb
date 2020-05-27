@@ -5,6 +5,7 @@ import com.forte.qqrobot.sender.MsgSender;
 import com.forte.qqrobot.timetask.TimeJob;
 import com.forte.qqrobot.utils.CQCodeUtil;
 import com.qbot.service.DkService;
+import com.qbot.service.SendMsgService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +14,8 @@ import org.springframework.stereotype.Component;
 public class AutoDk implements TimeJob {
     @Autowired
     DkService dkService;
-
+    @Autowired
+    SendMsgService sendMsgService;
     @Override
     public void execute(MsgSender msgSender, CQCodeUtil cqCodeUtil) {
         dkService.DkAll();

@@ -57,11 +57,12 @@ public class Jksb {
         finally {
             HttpClientUtils.closeQuietly(httpClient);
         }
-
         if(accountEntiry.isGroup()){
             sendMsgService.sendGroupMsg(accountEntiry.getQqGroup(),accountEntiry.getQqNum(),data.getMsg());
+            log.info(accountEntiry.getQqNum()+"-已私回复");
         }else {
             sendMsgService.sendPrivateMsg(accountEntiry.getQqNum(),data.getMsg());
+            log.info(accountEntiry.getQqNum()+"-已群回复");
         }
         log.info(data.getMsg());
     }
