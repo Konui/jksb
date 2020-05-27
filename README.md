@@ -1,4 +1,4 @@
-## 通过QQ进行郑州大学健康打卡 zzu jksb
+## 郑州大学健康上报
 基于酷Q的[Qbot框架](https://github.com/ForteScarlet/simple-robot-core)
 包名|类名|说明
   :-|  :-|  :-
