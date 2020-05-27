@@ -1,9 +1,11 @@
-## 基于Qbot的zzu打卡
+## 郑州大学健康上报
 基于酷Q的[Qbot框架](https://github.com/ForteScarlet/simple-robot-core)
 包名|类名|说明
   :-|  :-|  :-
 command|Commands|Qbot命令枚举类
 config|ExecutorConfig|线程池配置类
+| |JobFactory|quartz工厂,将job注入ioc
+| |SpringContextUtils|获取上下文
 crawler|Jskb|爬虫类
 entiry|AccountEntiry|储存用户打卡信息
 | |TbData|储存用户打卡过程中的json数据
