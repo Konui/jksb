@@ -14,8 +14,7 @@ import org.springframework.stereotype.Component;
 public class AutoDk implements TimeJob {
     @Autowired
     DkService dkService;
-    @Autowired
-    SendMsgService sendMsgService;
+
     @Override
     public void execute(MsgSender msgSender, CQCodeUtil cqCodeUtil) {
         dkService.DkAll();
