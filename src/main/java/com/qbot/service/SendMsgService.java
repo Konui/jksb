@@ -23,6 +23,6 @@ public class SendMsgService {
         simpleRobotContext.SENDER.sendPrivateMsg(uq,content);
     }
     public void sendGroupMsg(String gq,String uq,String content){
-        simpleRobotContext.SENDER.sendGroupMsg(gq,content+cqCodeUtil.getCQCode_At(uq).toString());
+        simpleRobotContext.SENDER.sendGroupMsg(gq,content+"\n"+cqCodeUtil.getCQCode_At(uq).toString());
     }
 }

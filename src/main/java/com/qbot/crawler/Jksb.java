@@ -57,6 +57,7 @@ public class Jksb {
         finally {
             HttpClientUtils.closeQuietly(httpClient);
         }
+        log.info(data.getMsg());
         if(accountEntiry.isGroup()){
             sendMsgService.sendGroupMsg(accountEntiry.getQqGroup(),accountEntiry.getQqNum(),data.getMsg());
             log.info(accountEntiry.getQqNum()+"-已私回复");
@@ -64,7 +65,6 @@ public class Jksb {
             sendMsgService.sendPrivateMsg(accountEntiry.getQqNum(),data.getMsg());
             log.info(accountEntiry.getQqNum()+"-已群回复");
         }
-        log.info(data.getMsg());
     }
     //进入首页，获取hh28值
     private void index(CloseableHttpClient httpClient,TbData data) throws IOException{
@@ -130,6 +130,7 @@ public class Jksb {
             forward1.releaseConnection();
         }
     }
+    //直接判断字符串
     private void iframe(CloseableHttpClient httpClient,TbData data) throws IOException{
         if(data.isOver())return;
         HttpGet forward1=new HttpGet(data.getIfURL());
@@ -137,19 +138,7 @@ public class Jksb {
         CloseableHttpResponse resp = httpClient.execute(forward1);
         try{
             String html =EntityUtils.toString(resp.getEntity(),"UTF-8");
-            String pattern = "\\d\\d\\d\\d-\\d\\d-\\d\\d \\d\\d:\\d\\d:\\d\\d";
-
-            Pattern r=Pattern.compile(pattern);
-            Matcher m=r.matcher(html);
-            if(m.find()){
-                String[] lastTime=m.group().split(" ");
-                Date time = Calendar.getInstance(Locale.CHINA).getTime();
-                SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                String[] nowTime=sdf.format(time).split(" ");
-                if(nowTime[0].equals(lastTime[0])){
-                    data.setOver(true);
-                    data.setMsg("今日您已经填报过了\n填报时间："+m.group());
-                }else{
+            if(!html.contains("今日您已经填报过了")){
                     Document document = Jsoup.parse(html);
                     data.setDay6(document.select("input[name=day6]").val());
                     data.setDid(document.select("input[name=did]").val());
@@ -157,16 +146,61 @@ public class Jksb {
                     data.setMen6(document.select("input[name=men6]").val());
                     data.setPtopid(document.select("input[name=ptopid]").val());
                     data.setSid(document.select("input[name=sid]").val());
-                }
             }else{
+                String pattern = "\\d\\d\\d\\d-\\d\\d-\\d\\d \\d\\d:\\d\\d:\\d\\d";
+                Pattern r=Pattern.compile(pattern);
+                Matcher m=r.matcher(html);
+                if(m.find()){
+                    data.setMsg("今日您已经填报过了"+"\n填报时间：" + m.group());
+                }else{
+                    data.setMsg("未确定上次填报时间"+"\n请自行确定\n" + getIndexURL());
+                }
                 data.setOver(true);
-                data.setMsg("未能确定今天是否填报过"+"\n请自行填报\n" + getIndexURL());
+
             }
         }finally {
             HttpClientUtils.closeQuietly(resp);
             forward1.releaseConnection();
         }
     }
+//未填报和填报格式不一样，不能正确判断时间
+//    private void iframe(CloseableHttpClient httpClient,TbData data) throws IOException{
+//        if(data.isOver())return;
+//        HttpGet forward1=new HttpGet(data.getIfURL());
+//
+//        CloseableHttpResponse resp = httpClient.execute(forward1);
+//        try{
+//            String html =EntityUtils.toString(resp.getEntity(),"UTF-8");
+//            String pattern = "\\d\\d\\d\\d-\\d\\d-\\d\\d \\d\\d:\\d\\d:\\d\\d";
+//
+//            Pattern r=Pattern.compile(pattern);
+//            Matcher m=r.matcher(html);
+//            if(m.find()){
+//                String[] lastTime=m.group().split(" ");
+//                Date time = Calendar.getInstance(Locale.CHINA).getTime();
+//                SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//                String[] nowTime=sdf.format(time).split(" ");
+//                if(nowTime[0].equals(lastTime[0])){
+//                    data.setOver(true);
+//                    data.setMsg("今日您已经填报过了\n填报时间："+m.group());
+//                }else{
+//                    Document document = Jsoup.parse(html);
+//                    data.setDay6(document.select("input[name=day6]").val());
+//                    data.setDid(document.select("input[name=did]").val());
+//                    data.setDoor(document.select("input[name=door]").val());
+//                    data.setMen6(document.select("input[name=men6]").val());
+//                    data.setPtopid(document.select("input[name=ptopid]").val());
+//                    data.setSid(document.select("input[name=sid]").val());
+//                }
+//            }else{
+//                data.setOver(true);
+//                data.setMsg("未能确定今天是否填报过"+"\n请自行填报\n" + getIndexURL());
+//            }
+//        }finally {
+//            HttpClientUtils.closeQuietly(resp);
+//            forward1.releaseConnection();
+//        }
+//    }
     private void enterTb(CloseableHttpClient httpClient,TbData tbData) throws IOException{
         if(tbData.isOver())return;
         HttpPost tb=new HttpPost(tbURL);
