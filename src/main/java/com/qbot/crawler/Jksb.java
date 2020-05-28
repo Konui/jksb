@@ -38,6 +38,7 @@ public class Jksb {
     private final String loginURL="https://jksb.v.zzu.edu.cn/vls6sss/zzujksb.dll/login";
     private final String tbURL="https://jksb.v.zzu.edu.cn/vls6sss/zzujksb.dll/jksb";
     public void dk(AccountEntiry accountEntiry) throws IOException{
+        log.info("---------------------------------------------");
         TbData data=new TbData();
 
         data.setUid(accountEntiry.getUn());
@@ -57,7 +58,9 @@ public class Jksb {
         finally {
             HttpClientUtils.closeQuietly(httpClient);
         }
+        log.info(accountEntiry.getQqNum());
         log.info(data.getMsg());
+        log.info(data.toString());
         if(accountEntiry.isGroup()){
             sendMsgService.sendGroupMsg(accountEntiry.getQqGroup(),accountEntiry.getQqNum(),data.getMsg());
             log.info(accountEntiry.getQqNum()+"-已私回复");
@@ -65,6 +68,7 @@ public class Jksb {
             sendMsgService.sendPrivateMsg(accountEntiry.getQqNum(),data.getMsg());
             log.info(accountEntiry.getQqNum()+"-已群回复");
         }
+        log.info("---------------------------------------------");
     }
     //进入首页，获取hh28值
     private void index(CloseableHttpClient httpClient,TbData data) throws IOException{
