@@ -23,7 +23,8 @@
 
   `nohup java -jar qbot.jar >bot.log &`
 
-若需要修改QBot请根据[[simple-robot 机器人开发者使用文档](https://www.kancloud.cn/forte-scarlet/simple-coolq-doc/1519393)进行修改。
+若需要修改QBot请根据[[simple-robot 机器人开发者使用文档](https://www.kancloud.cn/forte-scarlet/simple-coolq-doc/1519393)进行修改，修改后   
+在终端使用`mvn clean install -Dmaven.test.skip`生成jar包。
 ## 结构说明
 包名|类名|说明
   :-|  :-|  :-
