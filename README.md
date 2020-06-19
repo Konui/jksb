@@ -13,9 +13,10 @@
 
   `docker pull richardchien/cqhttp:latest `
 
-* 然后使用docker运行酷Q，将命令中`###*###`内容替换  。
-
-  `docker run  --rm --name qbot -d  -p 9000:9000   -p 5700:5700   -e COOLQ_ACCOUNT=###Q号###  -e CQHTTP_POST_URL=http://172.17.0.1:15510/coolq   -e VNC_PASSWD=###设置界面连接密码### richardchien/cqhttp`
+* 然后使用docker运行酷Q，将命令中`###*###`内容替换。
+```
+  docker run  --rm --name qbot -d  -p 9000:9000   -p 5700:5700   -e COOLQ_ACCOUNT=###Q号###  -e CQHTTP_POST_URL=http://172.17.0.1:15510/coolq   -e VNC_PASSWD=###设置界面连接密码### richardchien/cqhttp
+```
 
 * 访问服务器的9000端口，输入刚才设置的连接密码，登录酷q，确保CQHTTP插件开启。
 
