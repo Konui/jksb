@@ -1,4 +1,4 @@
-## 健康上报的打卡应用（现已停用，相关框架的Demo学习）
+## 健康上报的打卡应用（现已停用，可作相关框架的Demo学习）
 基于酷Q的[Qbot框架](https://github.com/ForteScarlet/simple-robot-core)，使用`HttpClient`爬取信息，`Jsoup`解析。能够定时自动打卡并通过qq通知打卡结果。
 ## 使用说明
 
